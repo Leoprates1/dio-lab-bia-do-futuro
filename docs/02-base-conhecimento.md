@@ -1,4 +1,4 @@
-# Base de Conhecimento (Knowledge Base)
+# Base de Conhecimento
 
 ## Dados Utilizados
 
