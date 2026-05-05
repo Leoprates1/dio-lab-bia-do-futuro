@@ -1,149 +1,86 @@
-# 🤖 Agente Financeiro Inteligente com IA Generativa
+# 🤖 BIA: Agente Financeiro Inteligente (Powered by n8n)
 
-## Contexto
+![n8n](https://img.shields.io/badge/Orquestrador-n8n-FF6D5A?style=for-the-badge&logo=n8n&logoColor=white)
+![AI](https://img.shields.io/badge/IA-GPT--4-000000?style=for-the-badge&logo=openai&logoColor=white)
+![Status](https://img.shields.io/badge/Status-Conclu%C3%ADdo-success?style=for-the-badge)
 
-Os assistentes virtuais no setor financeiro estão evoluindo de simples chatbots reativos para **agentes inteligentes e proativos**. Neste desafio, você vai idealizar e prototipar um agente financeiro que utiliza IA Generativa para:
+## 📌 Contexto do Projeto
 
-- **Antecipar necessidades** ao invés de apenas responder perguntas
-- **Personalizar** sugestões com base no contexto de cada cliente
-- **Cocriar soluções** financeiras de forma consultiva
-- **Garantir segurança** e confiabilidade nas respostas (anti-alucinação)
+Os assistentes virtuais no setor financeiro estão evoluindo de simples chatbots reativos para **agentes inteligentes e proativos**. Este repositório contém a entrega do desafio "BIA do Futuro" da DIO. 
 
-> [!TIP]
-> Na pasta [`examples/`](./examples/) você encontra referências de implementação para cada etapa deste desafio.
+A solução desenvolvida é a **BIA (Bank Intelligence Assistant)**, um agente financeiro orquestrado não por scripts complexos, mas através de **Agentic Workflows no n8n**. A BIA utiliza IA Generativa para:
+
+- **Antecipar necessidades:** Lendo históricos de transações antes mesmo do usuário pedir.
+- **Personalizar:** Cruzando o saldo disponível com o perfil de risco do cliente.
+- **Garantir segurança (Zero Alucinação):** Usando o n8n para forçar o LLM a consumir apenas o catálogo oficial de produtos em formato JSON.
 
 ---
 
-## O Que Você Deve Entregar
+## 🚀 O Que Foi Entregue
+
+A documentação completa do funcionamento, lógica e testes da BIA está dividida nos seguintes arquivos:
 
 ### 1. Documentação do Agente
-
-Defina **o que** seu agente faz e **como** ele funciona:
-
-- **Caso de Uso:** Qual problema financeiro ele resolve? (ex: consultoria de investimentos, planejamento de metas, alertas de gastos)
-- **Persona e Tom de Voz:** Como o agente se comporta e se comunica?
-- **Arquitetura:** Fluxo de dados e integração com a base de conhecimento
-- **Segurança:** Como evitar alucinações e garantir respostas confiáveis?
-
-📄 **Template:** [`docs/01-documentacao-agente.md`](./docs/01-documentacao-agente.md)
-
----
+Definição do problema, persona, tom de voz e a arquitetura visual do fluxo de dados rodando no n8n.
+📄 **Acesse:** [`docs/01-documentacao-agente.md`](./docs/01-documentacao-agente.md)
 
 ### 2. Base de Conhecimento
+Como o agente acessa e consome os dados simulados do banco (transações, perfil e produtos) via *Tools* do n8n.
+📄 **Acesse:** [`docs/02-base-conhecimento.md`](./docs/02-base-conhecimento.md)
 
-Utilize os **dados mockados** disponíveis na pasta [`data/`](./data/) para alimentar seu agente:
+### 3. Engenharia de Prompts
+O *System Prompt* rigoroso que dita as regras de negócio e os cenários de *Few-Shot Prompting* para lidar com tentativas de fraude ou perguntas fora do escopo.
+📄 **Acesse:** [`docs/03-prompts.md`](./docs/03-prompts.md)
 
-| Arquivo | Formato | Descrição |
-|---------|---------|-----------|
-| `transacoes.csv` | CSV | Histórico de transações do cliente |
-| `historico_atendimento.csv` | CSV | Histórico de atendimentos anteriores |
-| `perfil_investidor.json` | JSON | Perfil e preferências do cliente |
-| `produtos_financeiros.json` | JSON | Produtos e serviços disponíveis |
+### 4. Avaliação e Métricas
+Como o agente foi testado utilizando os logs de execução do n8n para garantir aderência ao perfil do cliente.
+📄 **Acesse:** [`docs/04-metricas.md`](./docs/04-metricas.md)
 
-Você pode adaptar ou expandir esses dados conforme seu caso de uso.
-
-📄 **Template:** [`docs/02-base-conhecimento.md`](./docs/02-base-conhecimento.md)
-
----
-
-### 3. Prompts do Agente
-
-Documente os prompts que definem o comportamento do seu agente:
-
-- **System Prompt:** Instruções gerais de comportamento e restrições
-- **Exemplos de Interação:** Cenários de uso com entrada e saída esperada
-- **Tratamento de Edge Cases:** Como o agente lida com situações limite
-
-📄 **Template:** [`docs/03-prompts.md`](./docs/03-prompts.md)
+### 5. Pitch de Apresentação
+Roteiro de apresentação e demonstração da solução rodando em tempo real.
+📄 **Acesse:** [`docs/05-pitch.md`](./docs/05-pitch.md)
 
 ---
 
-### 4. Aplicação Funcional
+## 🛠️ Aplicação Funcional (O Código)
 
-Desenvolva um **protótipo funcional** do seu agente:
+Diferente de soluções baseadas em código puro (como Streamlit/Gradio), este projeto utiliza uma arquitetura **Low-Code**. O cérebro do agente está exportado no formato JSON, pronto para ser importado em qualquer instância do n8n.
 
-- Chatbot interativo (sugestão: Streamlit, Gradio ou similar)
-- Integração com LLM (via API ou modelo local)
-- Conexão com a base de conhecimento
+📁 **Workflow do n8n:** [`src/bia_workflow.json`](./src/bia_workflow.json)
 
-📁 **Pasta:** [`src/`](./src/)
+*Para testar: Basta copiar o conteúdo do JSON e colar em um canvas vazio do n8n.*
 
 ---
 
-### 5. Avaliação e Métricas
+## ⚙️ Ferramentas Utilizadas
 
-Descreva como você avalia a qualidade do seu agente:
-
-**Métricas Sugeridas:**
-- Precisão/assertividade das respostas
-- Taxa de respostas seguras (sem alucinações)
-- Coerência com o perfil do cliente
-
-📄 **Template:** [`docs/04-metricas.md`](./docs/04-metricas.md)
+| Categoria | Ferramenta Escolhida e Motivo |
+|-----------|-------------------------------|
+| **Orquestração** | **[n8n](https://n8n.io/)**: Escolhido pela sua capacidade nativa de criar *Advanced AI Agents* com uso de ferramentas (Tools) e memória de forma visual e segura. |
+| **LLM (Cérebro)** | **OpenAI (GPT-4o)**: Conectado via nó nativo no n8n, configurado com temperatura baixa (0.1) para foco analítico. |
+| **Integração/Chat** | **n8n Chat Trigger**: Interface de testes nativa para simular a conversa com o usuário sem necessidade de desenvolver um front-end do zero. |
 
 ---
 
-### 6. Pitch
+## 📂 Estrutura do Repositório
 
-Grave um **pitch de 3 minutos** (estilo elevador) apresentando:
-
-- Qual problema seu agente resolve?
-- Como ele funciona na prática?
-- Por que essa solução é inovadora?
-
-📄 **Template:** [`docs/05-pitch.md`](./docs/05-pitch.md)
-
----
-
-## Ferramentas Sugeridas
-
-Todas as ferramentas abaixo possuem versões gratuitas:
-
-| Categoria | Ferramentas |
-|-----------|-------------|
-| **LLMs** | [ChatGPT](https://chat.openai.com/), [Copilot](https://copilot.microsoft.com/), [Gemini](https://gemini.google.com/), [Claude](https://claude.ai/), [Ollama](https://ollama.ai/) |
-| **Desenvolvimento** | [Streamlit](https://streamlit.io/), [Gradio](https://www.gradio.app/), [Google Colab](https://colab.research.google.com/) |
-| **Orquestração** | [LangChain](https://www.langchain.com/), [LangFlow](https://www.langflow.org/), [CrewAI](https://www.crewai.com/) |
-| **Diagramas** | [Mermaid](https://mermaid.js.org/), [Draw.io](https://app.diagrams.net/), [Excalidraw](https://excalidraw.com/) |
-
----
-
-## Estrutura do Repositório
-
-```
+```text
 📁 lab-agente-financeiro/
 │
-├── 📄 README.md
+├── 📄 README.md                        # Este documento
 │
-├── 📁 data/                          # Dados mockados para o agente
-│   ├── historico_atendimento.csv     # Histórico de atendimentos (CSV)
-│   ├── perfil_investidor.json        # Perfil do cliente (JSON)
-│   ├── produtos_financeiros.json     # Produtos disponíveis (JSON)
-│   └── transacoes.csv                # Histórico de transações (CSV)
+├── 📁 data/                            # Dados mockados consumidos pela IA
+│   ├── historico_atendimento.csv       
+│   ├── perfil_investidor.json          
+│   ├── produtos_financeiros.json       
+│   └── transacoes.csv                  
 │
-├── 📁 docs/                          # Documentação do projeto
-│   ├── 01-documentacao-agente.md     # Caso de uso e arquitetura
-│   ├── 02-base-conhecimento.md       # Estratégia de dados
-│   ├── 03-prompts.md                 # Engenharia de prompts
-│   ├── 04-metricas.md                # Avaliação e métricas
-│   └── 05-pitch.md                   # Roteiro do pitch
+├── 📁 docs/                            # Documentação técnica do projeto
+│   ├── 01-documentacao-agente.md       
+│   ├── 02-base-conhecimento.md         
+│   ├── 03-prompts.md                   
+│   ├── 04-metricas.md                  
+│   └── 05-pitch.md                     
 │
-├── 📁 src/                           # Código da aplicação
-│   └── app.py                        # (exemplo de estrutura)
-│
-├── 📁 assets/                        # Imagens e diagramas
-│   └── ...
-│
-└── 📁 examples/                      # Referências e exemplos
-    └── README.md
-```
-
----
-
-## Dicas Finais
-
-1. **Comece pelo prompt:** Um bom system prompt é a base de um agente eficaz
-2. **Use os dados mockados:** Eles garantem consistência e evitam problemas com dados sensíveis
-3. **Foque na segurança:** No setor financeiro, evitar alucinações é crítico
-4. **Teste cenários reais:** Simule perguntas que um cliente faria de verdade
-5. **Seja direto no pitch:** 3 minutos passam rápido, vá ao ponto
+└── 📁 src/                             # Código da aplicação
+    └── bia_workflow.json               # Fluxo exportado do n8n
